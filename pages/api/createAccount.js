@@ -10,7 +10,15 @@ export default async function handler(req, res) {
     let DB = await fs.readFile(jsonDirectory + "/users.json", "utf-8");
     DB = JSON.parse(DB);
 
+    DB[body.ID] = body;
+
     console.log(DB);
+
+    await fs.writeFile(
+      jsonDirectory + "/users.json",
+      JSON.stringify(DB),
+      "utf-8"
+    );
 
     res.status(201).json(JSON.stringify({ msg: "got request!" }));
   }

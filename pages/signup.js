@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import Seo from "./components/Seo";
 
 export default function Signup({ data }) {
+  const router = useRouter();
+
   const [inputID, setInputID] = useState("");
   const [inputNick, setInputNick] = useState("");
   const [inputPW, setInputPW] = useState("");
@@ -58,6 +61,9 @@ export default function Signup({ data }) {
 
           // 4. set POST request to API
           submitAccount(inputID, inputNick, inputPW);
+
+          // 5. switch route
+          router.push("/login");
         }
       }
     } else {

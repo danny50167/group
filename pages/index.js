@@ -14,7 +14,7 @@ export default function Home() {
           <Link href="/signup">
             <a className="btns">Start Now</a>
           </Link>
-          <Link href="/">
+          <Link href="/login">
             <a className="btns">Login</a>
           </Link>
         </div>
