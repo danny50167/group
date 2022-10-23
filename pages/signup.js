@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { sha256 } from "crypto-hash";
 
 import Seo from "./components/Seo";
 
@@ -27,28 +28,24 @@ export default function Signup({ data }) {
       body: JSON.stringify({
         ID: ID,
         nick: nick,
-        PW: PW,
+        PW: await sha256(PW),
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     const data = await res.json();
-    console.log(data);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // 1. ID duplicate check
-    console.log(data);
     if (inputID && !data[inputID] && inputID.length >= 3) {
-      console.log(1);
       isIDDuplicate(false);
 
       // 2. nick length check
       if (inputNick.length > 12 || inputNick.length < 3) {
-        console.log(11);
         setAlert_nick("Nickname should be 3~15 letters.");
       } else {
         setAlert_nick("");
@@ -67,7 +64,6 @@ export default function Signup({ data }) {
         }
       }
     } else {
-      console.log(2);
       isIDDuplicate(true);
     }
   };
@@ -172,7 +168,6 @@ export default function Signup({ data }) {
 
 export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3000/api/userDB`);
-  // console.log(res);
   let data = await res.json();
   data = JSON.parse(data);
   console.log(data);
