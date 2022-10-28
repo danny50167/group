@@ -1,3 +1,8 @@
 export default function Home() {
-  return "This is the Home page.";
+  return (
+    <div id="body">
+      
+    </div>
+  )
+  
 }
